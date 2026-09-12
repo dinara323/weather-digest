@@ -1,0 +1,9 @@
+{
+  "name": "weather-digest",
+  "version": "1.0.0",
+  "description": "Console weather digest",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env src/index.js"
+  }
+}
