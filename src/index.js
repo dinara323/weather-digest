@@ -30,11 +30,23 @@ for (let i = 0; i < args.length; i++) {
     process.exit(1);
     }
 
+const cities = city.split(',');
+
 console.log({
   city,
   days,
   noCache,
 });
 
-const report = await getWeatherReport(city, days);
-printReport(report);
+const results = await Promise.allSettled(
+  cities.map((city) => getWeatherReport(city, days))
+);
+
+for (const result of results) {
+  if (result.status === 'fulfilled') {
+    printReport(result.value);
+    console.log();
+  } else {
+    console.error(`Ошибка: ${result.reason.message}`);
+  }
+}
