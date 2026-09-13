@@ -1,0 +1,165 @@
+{
+  "info": {
+    "_postman_id": "6d15c7ae-d623-4d6e-b89c-049e8b1c6f9d",
+    "name": "Weather Digest API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54575101",
+    "_collection_link": "https://go.postman.co/collection/54575101-6d15c7ae-d623-4d6e-b89c-049e8b1c6f9d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "geocoding-api",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test('Город не найден — поле results отсутствует', function () {\r",
+              "    pm.expect(response.results).to.be.undefined;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/search?name={{city}}&count=1&language=ru&format=json",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "{{city}}"
+            },
+            {
+              "key": "count",
+              "value": "1"
+            },
+            {
+              "key": "language",
+              "value": "ru"
+            },
+            {
+              "key": "format",
+              "value": "json"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Forecast — get weather by coordinates",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test('Город не найден — поле results отсутствует', function () {\r",
+              "    pm.expect(response.results).to.be.undefined;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{weatherUrl}}/forecast?latitude=abc&longitude={{lon}}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&forecast_days=3&timezone=auto",
+          "host": [
+            "{{weatherUrl}}"
+          ],
+          "path": [
+            "forecast"
+          ],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "abc"
+            },
+            {
+              "key": "longitude",
+              "value": "{{lon}}"
+            },
+            {
+              "key": "daily",
+              "value": "temperature_2m_max,temperature_2m_min,precipitation_sum"
+            },
+            {
+              "key": "forecast_days",
+              "value": "3"
+            },
+            {
+              "key": "timezone",
+              "value": "auto"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://geocoding-api.open-meteo.com/v1"
+    },
+    {
+      "key": "weatherUrl",
+      "value": "https://api.open-meteo.com/v1"
+    },
+    {
+      "key": "city",
+      "value": "Москва"
+    },
+    {
+      "key": "lat",
+      "value": "55.75204"
+    },
+    {
+      "key": "lon",
+      "value": "37.61781"
+    }
+  ]
+}
