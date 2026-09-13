@@ -39,7 +39,7 @@ console.log({
 });
 
 const results = await Promise.allSettled(
-  cities.map((city) => getWeatherReport(city, days))
+  cities.map((city) => getWeatherReport(city, days, noCache))
 );
 
 for (const result of results) {

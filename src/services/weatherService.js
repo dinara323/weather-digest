@@ -1,9 +1,9 @@
 import {getCityCoordinates, getWeatherForecast,} from '../api/openMeteo.js';
 import {loadReport,saveReport,} from '../storage/reportStorage.js';
 
-export async function getWeatherReport(city, days) {
+export async function getWeatherReport(city, days, noCache) {
   const today = new Date().toISOString().slice(0, 10);
-  const savedReport = await loadReport(city, today);
+  const savedReport = noCache ? null : await loadReport(city, today);
   if (savedReport && savedReport.forecast.length >= days) {
     return {...savedReport, forecast: savedReport.forecast.slice(0, days),};
   }
