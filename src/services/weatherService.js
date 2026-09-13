@@ -4,9 +4,10 @@ import {loadReport,saveReport,} from '../storage/reportStorage.js';
 export async function getWeatherReport(city, days) {
   const today = new Date().toISOString().slice(0, 10);
   const savedReport = await loadReport(city, today);
-  if (savedReport) {
-    return savedReport;
+  if (savedReport && savedReport.forecast.length >= days) {
+    return {savedReport,forecast: savedReport.forecast.slice(0, days),};
   }
+
   const coordinates = await getCityCoordinates(city);
 
   const forecast = await getWeatherForecast(

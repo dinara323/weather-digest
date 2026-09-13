@@ -1,4 +1,5 @@
 import { getWeatherReport } from './services/weatherService.js';
+import { printReport } from './format/terminal.js';
 const args = process.argv.slice(2);
 
 let city;
@@ -36,4 +37,4 @@ console.log({
 });
 
 const report = await getWeatherReport(city, days);
-console.log(report);
+printReport(report);
