@@ -6,7 +6,7 @@ export function printReport(report) {
 
   for (const day of report.forecast) {
     console.log(
-      `${day.date}: от ${day.temperatureMin}°C до ${day.temperatureMax}°C, осадки: ${day.precipitation} мм°C`
+      `${day.date}: от ${day.temperatureMin}°C до ${day.temperatureMax}°C, осадки: ${day.precipitation} мм`
     );
   }
 }
