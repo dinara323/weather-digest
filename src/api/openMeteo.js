@@ -23,9 +23,14 @@ async function request(url) {
       throw new Error(`Ошибка сервера: HTTP ${response.status}`);
     }
 
-    const data = await response.json();
-
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error('Сервер вернул некорректный JSON.');
+    }
     return data;
+
   } catch (error) {
     if (error.name === 'AbortError') {
       throw new Error(`Превышено время ожидания запроса (${timeoutMs} мс).`);
@@ -55,6 +60,7 @@ export async function getCityCoordinates(city) {
 
   return {
     name: result.name,
+    country: result.country,
     latitude: result.latitude,
     longitude: result.longitude,
   };
@@ -65,14 +71,14 @@ export async function getWeatherForecast(latitude, longitude, days) {
   url.searchParams.set('latitude', latitude);
   url.searchParams.set('longitude', longitude);
   url.searchParams.set('forecast_days', days);
-  url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min');
+  url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum');
   url.searchParams.set('timezone', 'auto');
-
   const data = await request(url);
 
   return {
     dates: data.daily.time,
     temperatureMax: data.daily.temperature_2m_max,
     temperatureMin: data.daily.temperature_2m_min,
+    precipitationSum: data.daily.precipitation_sum,
   };
 }

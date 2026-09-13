@@ -21,11 +21,13 @@ export async function getWeatherReport(city, days, noCache) {
       date,
       temperatureMax: forecast.temperatureMax[index],
       temperatureMin: forecast.temperatureMin[index],
+      precipitation: forecast.precipitationSum[index],
     };
   });
 
   const report = {
     city: coordinates.name,
+    country: coordinates.country,
     latitude: coordinates.latitude,
     longitude: coordinates.longitude,
     forecast: forecastDays,

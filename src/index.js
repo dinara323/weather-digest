@@ -15,7 +15,7 @@ for (let i = 0; i < args.length; i++) {
     days = Number(args[i + 1]);
   }
 
-  if (days > 8 || days < 1 || !Number.isInteger(days)) {
+  if (days > 7 || days < 1 || !Number.isInteger(days)) {
     console.error('Ошибка: параметр --days целое число от 1 до 7.');
     process.exit(1);
     }
@@ -32,21 +32,22 @@ for (let i = 0; i < args.length; i++) {
 
 const cities = city.split(',');
 
-console.log({
-  city,
-  days,
-  noCache,
-});
-
 const results = await Promise.allSettled(
   cities.map((city) => getWeatherReport(city, days, noCache))
 );
+
+let hasErrors = false;
 
 for (const result of results) {
   if (result.status === 'fulfilled') {
     printReport(result.value);
     console.log();
   } else {
+    hasErrors = true;
     console.error(`Ошибка: ${result.reason.message}`);
   }
+}
+process.exitCode = 0
+if (hasErrors) {
+  process.exitCode = 1;
 }
