@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { getWeatherReport } from './services/weatherService.js';
 import { printReport } from './format/terminal.js';
 const args = process.argv.slice(2);

@@ -4,6 +4,9 @@
   "description": "Console weather digest",
   "type": "module",
   "scripts": {
-    "start": "node --env-file=.env src/index.js"
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }
