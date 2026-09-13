@@ -1,3 +1,4 @@
+import { getWeatherReport } from './services/weatherService.js';
 const args = process.argv.slice(2);
 
 let city;
@@ -33,3 +34,6 @@ console.log({
   days,
   noCache,
 });
+
+const report = await getWeatherReport(city, days);
+console.log(report);
